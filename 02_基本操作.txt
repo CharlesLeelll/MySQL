@@ -1,0 +1,48 @@
+﻿CRUD (Create ,Retrieve[读取] ,Update ,Delete)
+显示数据库
+	show databases;
+
+
+建表建库: DDL (Data Definition Language)
+
+建库:
+	create database 数据库实例名; 
+删库:
+	drop database [if exists] 数据库实例名; 
+建表:
+	create table 表名(
+	#字段名 字段类型 [约束条件],字段名 字段类型 [约束条件],...
+	);
+删表:
+	drop table [if exists] 表名;
+查询表结构:
+	desc 表名; 
+
+
+
+增删改查: DML (Data Manipulation Language)
+
+添加:
+方式1: 
+	insert into 表名(字段名1,字段名2,...) value (值1,值2,...) ;  # 必须按照指定字段的顺序和个数 添加数据
+方式2: 
+	insert into 表名  value (值1,值2,...) ;  # 必须按照表结构中字段的顺序,对所有字段赋值.
+
+查询:
+方式1: 
+	select * from 表名; # 查询指定表的所有字段
+方式2: 
+	select 字段名1,字段名2,... from 表名; #查询表中的指定字段
+
+修改:
+方式1: 
+	update 表名 set 字段名=值,字段名=值,...;  # 设置表中指定字段的所有值
+方式2: 
+	update 表名 set 字段名=值,字段名=值,... where 条件;  # 设置满足条件的数据的指定字段的值
+
+删除:
+方式1: 
+	delete from 表名; # 删除表中的所有数据
+方式2: 
+	delete from 表名 where 条件; # 删除表中满足条件的数据
+注意: delete是清除数据,表结构还在. drop是删除整个表格,表不存在.

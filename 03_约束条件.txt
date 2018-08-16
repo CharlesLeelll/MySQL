@@ -1,0 +1,140 @@
+﻿|----为什么使用约束?及约束的作用
+用户: 1 张三 你猜  -23 火星  --->数据没有任何意义
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int(11)     | YES  |     | NULL    |       |
+| name  | varchar(10) | YES  |     | NULL    |       |
+| sex   | varchar(5)  | YES  |     | NULL    |       |
+| age   | int(11)     | YES  |     | NULL    |       |
+| class | int(11)     | YES  |     | NULL    |       |
+| hobby | char(20)    | YES  |     | NULL    |       |
+| IDCar | int(11)     | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+insert into student values(1,'张三','你猜',-23,1,'唱歌',111);
+
+实际生活,若数据有问题,应该禁止操作: 添加/修改
+
+约束条件: 约束/限制操作的数据
+
+|----mysql中有哪些约束?
+mysql/oracle约束条件: 主键约束,唯一约束,检查性约束,默认约束,非空约束,外键约束.
+
+|----约束详解:
+create table t1(
+id int ,
+name varchar(20)
+);
+
+
+主键约束: 
+分类: 普通主键  复合主键[主键由多个字段组成]
+格式: 字段名 字段类型 primary key
+作用: 主键字段的值非空且唯一
+附加: 表设计时,主键作为数据的标识. 要求主键字段没有实际意义.
+drop table t1;
+create table t1(
+id int primary key,
+name varchar(20)
+);
+mysql> desc t1;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int(11)     | NO   | PRI | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+insert into t1 values(1,'AA');
+
+唯一约束:
+格式: 字段名 字段类型 unique
+作用: 使用唯一约束的字段,字段值不能重复
+drop table t1;
+create table t1(
+id int primary key,
+name varchar(20) unique
+);
+mysql> desc t1;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int(11)     | NO   | PRI | NULL    |       |
+| name  | varchar(20) | YES  | UNI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+insert into t1 values(1,'AA');
+
+默认约束:
+格式: 字段名 字段类型 default 默认值
+作用: 当添加数据时,若未对字段赋值,字段将直接使用默认值
+drop table t1;
+create table t1(
+id int primary key,
+name varchar(20) unique,
+sex char(2) default '男'
+);
+mysql> desc t1;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int(11)     | NO   | PRI | NULL    |       |
+| name  | varchar(20) | YES  | UNI | NULL    |       |
+| sex   | char(2)     | YES  |     | 男      |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+insert into t1 values(1,'AA','女');
+insert into t1(id,name) values(2,'BB');
+
+
+检查性约束:
+格式: 字段名 字段类型 check(条件)
+作用: 使用该约束的字段,字段值必须满足指定条件
+注意: mysql中含有检查性约束,但是不强制执行. [oracle中强制执行]
+drop table t1;
+create table t1(
+id int primary key,
+name varchar(20) unique,
+sex char(2) default '男',
+age int check(age>18)
+);
+mysql> desc t1;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int(11)     | NO   | PRI | NULL    |       |
+| name  | varchar(20) | YES  | UNI | NULL    |       |
+| sex   | char(2)     | YES  |     | 男      |       |
+| age   | int(11)     | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+insert into t1 values(1,'AA','女',23);
+insert into t1 values(2,'BB','女',10);
+
+
+非空约束:
+格式: 字段名 字段类型  not null
+作用: 使用该约束的字段,字段值不能为空
+drop table t1;
+create table t1(
+id int primary key,
+name varchar(20) unique,
+sex char(2) default '男',
+age int check(age>18),
+address varchar(30) not null
+);
+
+insert into t1 values(1,'AA','女',23,'北京');
+insert into t1(id,name,sex,age) values(2,'BB','男',23);
+|----问题
+一个字段可以含有几个约束?
+N个
+格式: 字段名 字段类型 约束1 约束2 约束3 ....
+
+一个表中可以含有几个主键?
+0或1
+
+
+主键为id,name要求非空且唯一:
+name varchar(20) unique not null

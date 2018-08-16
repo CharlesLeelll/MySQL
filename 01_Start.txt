@@ -1,0 +1,52 @@
+﻿登陆数据库: mysql -h主机名或IP -u账号 -p密码   [-p与密码之间不能空格,否则将作为密码的一部分]
+列出所有的数据库实例: show databases;
+选中要操作的数据库实例: use 数据库实例名;
+
+数据不能散列存放,实际中以数据表作为基本单元.
+列出当前数据库实例中的所有数据表: show tables;
+查看表结构: desc  表名; # description 
+
+
+
+
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema | 
+| mysql              |
+| performance_schema |
+| test               |
++--------------------+
+4 rows in set (0.03 sec)
+数据库安装后,默认含有4个数据库实例: information_schema,performance_schema,mysql,test.
+其中information_schema,performance_schema中主要是mysql软件的配置信息,勿删!
+mysql[数据库实例],里面主要存放账号信息
+test中默认没有任何形式的数据,但是实质含有隐式的配置信息,因此不能删除该数据库. 若删除后或删除并重建,将影响后面的操作.
+
+
+修改账号密码:
+方式1: 进入mysql数据库实例,执行update命令
+方式2: set passward=passward('新密码') where 条件;
+
+
+
+
+
+数据类型:
+整数: int
+小数: float double
+字符/字符串: char varchar
+日期: date datetime
+说明:
+char指字段含有指定个字符,若不够将自动填充
+varchar指字段最多含有指定个数的字符,若不够不会自动填充.
+
+name char(10)          "张三        "       123456789123--->1234567891
+name varchar(10)       "张三"	            123456789123--->1234567891
+
+
+
+
+

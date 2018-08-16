@@ -1,0 +1,13 @@
+﻿JDBC: Java DataBase Connectivity Java数据库连接标准[接口]
+
+MySQL独立软件  <====JDBC===> Java独立软件
+
+连接mysql:
+1.添加mysql驱动器: jar包
+2.连接数据库: 账号 密码 URL
+3.创建执行SQL命令的执行对象
+4.使用SQL执行对象,执行SQL命令
+5.处理执行结果
+
+
+dao包: data access object
